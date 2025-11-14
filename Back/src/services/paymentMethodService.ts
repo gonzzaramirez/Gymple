@@ -1,10 +1,5 @@
 import prisma from '../config/database';
-
-export interface PaymentMethodResponse {
-  paymentMethodId: number;
-  name: string;
-  description?: string | null;
-}
+import { PaymentMethodResponse } from '../models/paymentMethod';
 
 export const getAllPaymentMethods = async (): Promise<PaymentMethodResponse[]> => {
   const paymentMethods = await prisma.payment_method.findMany({

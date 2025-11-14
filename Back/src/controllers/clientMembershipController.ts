@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
-import {
-  getClientMembershipsByClientId,
-  createClientMembership,
-  CreateClientMembershipData,
-} from '../services/clientMembershipService';
+import { getClientMembershipsByClientId, createClientMembership } from '../services/clientMembershipService';
+import { CreateClientMembershipData } from '../models/clientMembership';
 
 export const getClientMembershipsController = async (
   req: Request,

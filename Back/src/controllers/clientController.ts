@@ -4,8 +4,8 @@ import {
   getClientById,
   createClient,
   deleteClient,
-  CreateClientData,
 } from '../services/clientService';
+import { CreateClientData } from '../models/client';
 
 export const getAllClientsController = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -1,24 +1,5 @@
 import prisma from '../config/database';
-
-export interface CreateClientData {
-  firstName: string;
-  lastName: string;
-  phone?: string;
-  email: string;
-}
-
-export interface ClientWithPerson {
-  clientId: number;
-  createdAt: Date;
-  person: {
-    personId: number;
-    firstName: string;
-    lastName: string;
-    phone?: string | null;
-    email: string;
-    createdAt: Date;
-  };
-}
+import { CreateClientData, ClientWithPerson } from '../models/client';
 
 export const getAllClients = async (): Promise<ClientWithPerson[]> => {
   const clients = await prisma.client.findMany({

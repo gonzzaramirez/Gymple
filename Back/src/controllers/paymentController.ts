@@ -3,8 +3,8 @@ import {
   getPaymentsByClientMembershipId,
   getAllPayments,
   createPayment,
-  CreatePaymentData,
 } from '../services/paymentService';
+import { CreatePaymentData } from '../models/payment';
 
 export const getPaymentsByClientMembershipController = async (
   req: Request,

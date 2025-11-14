@@ -3,8 +3,8 @@ import {
   getAllMemberships,
   getMembershipById,
   createMembership,
-  MembershipData,
 } from '../services/membershipService';
+import { MembershipData } from '../models/membership';
 
 export const getAllMembershipsController = async (req: Request, res: Response): Promise<void> => {
   try {
