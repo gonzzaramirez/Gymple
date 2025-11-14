@@ -1,0 +1,212 @@
+### Gymple API Testing
+### Use REST Client extension in VS Code to run these requests
+
+@baseUrl = http://localhost:3000
+
+###############################################
+# HEALTH CHECK
+###############################################
+
+### Health Check
+GET {{baseUrl}}/health
+
+###############################################
+# CLIENTS
+###############################################
+
+### Get All Clients
+GET {{baseUrl}}/clients
+
+### Get Client by ID
+GET {{baseUrl}}/clients/1
+
+### Create Client
+POST {{baseUrl}}/clients
+Content-Type: application/json
+
+{
+  "firstName": "María",
+  "lastName": "González",
+  "email": "maria@example.com",
+  "phone": "11-5555-9999"
+}
+
+### Create Another Client
+POST {{baseUrl}}/clients
+Content-Type: application/json
+
+{
+  "firstName": "Juan",
+  "lastName": "Pérez",
+  "email": "juan@example.com",
+  "phone": "11-1234-5678"
+}
+
+### Delete Client
+DELETE {{baseUrl}}/clients/1
+
+###############################################
+# MEMBERSHIPS
+###############################################
+
+### Get All Memberships
+GET {{baseUrl}}/memberships
+
+### Get Membership by ID
+GET {{baseUrl}}/memberships/1
+
+### Create Membership - Basic
+POST {{baseUrl}}/memberships
+Content-Type: application/json
+
+{
+  "name": "Basic Monthly",
+  "description": "Standard gym access - All facilities",
+  "price": 3000.00,
+  "durationDays": 30
+}
+
+### Create Membership - Premium
+POST {{baseUrl}}/memberships
+Content-Type: application/json
+
+{
+  "name": "Premium Monthly",
+  "description": "Full access + Personal trainer",
+  "price": 5000.00,
+  "durationDays": 30
+}
+
+### Create Membership - Annual
+POST {{baseUrl}}/memberships
+Content-Type: application/json
+
+{
+  "name": "Annual Plan",
+  "description": "12 months access with discount",
+  "price": 30000.00,
+  "durationDays": 365
+}
+
+###############################################
+# PAYMENT METHODS
+###############################################
+
+### Get All Payment Methods
+GET {{baseUrl}}/payment-methods
+
+### Get Payment Method by ID
+GET {{baseUrl}}/payment-methods/1
+
+###############################################
+# CLIENT MEMBERSHIPS
+###############################################
+
+### Get Client's Memberships
+GET {{baseUrl}}/clients/1/memberships
+
+### Create Client Membership
+POST {{baseUrl}}/client-memberships
+Content-Type: application/json
+
+{
+  "clientId": 1,
+  "membershipId": 1,
+  "startDate": "2025-01-15"
+}
+
+### Create Another Client Membership
+POST {{baseUrl}}/client-memberships
+Content-Type: application/json
+
+{
+  "clientId": 2,
+  "membershipId": 2,
+  "startDate": "2025-01-20"
+}
+
+###############################################
+# PAYMENTS
+###############################################
+
+### Get All Payments (Last 100)
+GET {{baseUrl}}/payments
+
+### Get Payments by Client Membership
+GET {{baseUrl}}/client-memberships/1/payments
+
+### Create Payment
+POST {{baseUrl}}/payments
+Content-Type: application/json
+
+{
+  "clientMembershipId": 1,
+  "paymentMethodId": 1,
+  "amount": 3000.00
+}
+
+### Create Payment with Custom Date
+POST {{baseUrl}}/payments
+Content-Type: application/json
+
+{
+  "clientMembershipId": 1,
+  "paymentMethodId": 2,
+  "amount": 3000.00,
+  "paidAt": "2025-01-15T10:30:00Z"
+}
+
+###############################################
+# COMPLETE WORKFLOW EXAMPLE
+###############################################
+
+### 1. Create Client
+POST {{baseUrl}}/clients
+Content-Type: application/json
+
+{
+  "firstName": "Carlos",
+  "lastName": "Martínez",
+  "email": "carlos@example.com",
+  "phone": "11-9876-5432"
+}
+
+### 2. Create Membership Type
+POST {{baseUrl}}/memberships
+Content-Type: application/json
+
+{
+  "name": "Student Plan",
+  "description": "Special discount for students",
+  "price": 2500.00,
+  "durationDays": 30
+}
+
+### 3. Assign Membership to Client (use IDs from previous responses)
+POST {{baseUrl}}/client-memberships
+Content-Type: application/json
+
+{
+  "clientId": 3,
+  "membershipId": 4,
+  "startDate": "2025-01-15"
+}
+
+### 4. Get Available Payment Methods
+GET {{baseUrl}}/payment-methods
+
+### 5. Register Payment
+POST {{baseUrl}}/payments
+Content-Type: application/json
+
+{
+  "clientMembershipId": 3,
+  "paymentMethodId": 1,
+  "amount": 2500.00
+}
+
+### 6. View Client's Active Memberships
+GET {{baseUrl}}/clients/3/memberships
+
+### 7. View Membership Payment History
+GET {{baseUrl}}/client-memberships/3/payments
